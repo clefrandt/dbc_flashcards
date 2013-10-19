@@ -8,13 +8,12 @@ class FlashCard
     @in_the_deck = true
   end
   
-  def self.compare_guess_answer(guess, deck) # check if guess is a string
+  def self.compare_guess_answer(guess, deck)
     guess = guess.downcase
    
     if guess == deck.card_objects[deck.curr_card].answer
       in_the_deck = false   
       UserInterface.correct(guess)
-      #DELETE IT NOW
     else 
        UserInterface.wrong(guess)
         deck.curr_card +=1
@@ -29,7 +28,6 @@ class Deck
 
   def initialize(hash_1)
     @card_objects = make_deck(hash_1)
-    # @hash = hash
     @curr_card = 0
   end  
 
@@ -38,15 +36,11 @@ class Deck
   end
 
   def remove_correct_answers(deck)
-    # @card_objects.delete_if { |card|  deck.card_objects[deck.curr_card]}
     @card_objects.delete(deck.card_objects[deck.curr_card])
-    # p @card_objects
   end 
 
   def shuffle_cards
-    puts @card_objects
     @card_objects.shuffle
-    puts @card_objects
   end
 
   def return_score
@@ -59,6 +53,7 @@ class Flashcard_Parser
   
   def self.parse(file)
     place_holder = []
+    
     File.open(file,'r').each_line do |line|
       if line != "\n"
         place_holder << line
